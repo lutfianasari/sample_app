@@ -28,8 +28,9 @@ describe User do
 
   it { should be_valid }
 
-  
   it { should respond_to(:authenticate) }
+
+  it { should respond_to(:remember_token) }
 
   describe "when name is not present" do
     before { @user.name = " " }
@@ -105,5 +106,10 @@ describe User do
       it { should_not == user_for_invalid_password }
       specify { user_for_invalid_password.should be_false }
     end
+  end
+
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
   end
 end
